@@ -136,8 +136,12 @@ module.exports = grammar({
     constant_declaration: $ => seq(
       optional('export'),
       'def',
-      commaSep1(seq($.identifier, ':', $.type, '=', $.expression)),
+      commaSep1($.constant_binding),
       ';',
+    ),
+
+    constant_binding: $ => seq(
+      $.identifier, optional(seq(':', $.type)), '=', $.expression,
     ),
 
     type_declaration: $ => seq(
